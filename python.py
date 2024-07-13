@@ -22,11 +22,28 @@ def load_json(file_path):
         sys.exit(1)
 
 
+def save_json(data, file_path):
+    try:
+        with open(file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+        print(f"Data successfully saved to {file_path}")
+    except Exception as e:
+        print(f"Error writing JSON file: {e}")
+        sys.exit(1)
+
+
 if __name__ == "__main__":
-        input_file, output_file = parse_arguments()
+    input_file, output_file = parse_arguments()
     if input_file.endswith('.json'):
         data = load_json(input_file)
-        print(f"Loaded data: {data}")
     else:
         print("Input file is not a .json file")
+        sys.exit(1)
+
+    if output_file.endswith('.json'):
+        save_json(data, output_file)
+    else:
+        print("Output file is not a .json file")
+
+
 
